@@ -3,47 +3,43 @@ pipeline {
 
     environment {
         IMAGE_NAME = "intranet-portal"
-        DOCKERHUB_USER = "yourdockerhubusername"   // <-- change this
+        DOCKERHUB_USER = "jayakavin2005"
         IMAGE_TAG = "latest"
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Pulls the latest code from GitHub
-                git branch: 'main', url: 'https://github.com/yourusername/your-repo.git'
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG} ."
+                bat "docker build -t %DOCKERHUB_USER%/%IMAGE_NAME%:%IMAGE_TAG% ."
             }
         }
 
-        stage('Push to Docker Hub (optional)') {
+        stage('Push to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DUSER', passwordVariable: 'DPASS')]) {
-                    sh "echo $DPASS | docker login -u $DUSER --password-stdin"
-                    sh "docker push ${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
+                    bat """
+                    echo %DPASS% | docker login -u %DUSER% --password-stdin
+                    docker push %DOCKERHUB_USER%/%IMAGE_NAME%:%IMAGE_TAG%
+                    """
                 }
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh "kubectl apply -f k8s/deployment.yaml"
-                sh "kubectl apply -f k8s/service.yaml"
+                bat "kubectl apply -f k8s\\deployment.yaml"
+                bat "kubectl apply -f k8s\\service.yaml"
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline completed successfully. Take a screenshot of this console output.'
+            echo 'Pipeline completed successfully.'
         }
         failure {
-            echo 'Pipeline failed. Check logs above.'
+            echo 'Pipeline failed. Check Console Output.'
         }
     }
 }
