@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: intranet-portal-deployment
+  labels:
+    app: intranet-portal
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: intranet-portal
+  template:
+    metadata:
+      labels:
+        app: intranet-portal
+    spec:
+      containers:
+        - name: intranet-portal
+          image: intranet-portal:latest   # change to dockerhubuser/intranet-portal:latest if using Docker Hub
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80

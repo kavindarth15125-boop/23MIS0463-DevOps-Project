@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acme Corp | Intranet Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- STATUS STRIP -->
+<div class="status-strip" id="statusStrip">
+  <span class="dot"></span>
+  <span id="statusText">All systems operational</span>
+  <span class="status-time" id="statusTime"></span>
+</div>
+
+<!-- HEADER / NAV -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark">AC</span>
+      <span class="brand-name">Acme Corp <em>Intranet</em></span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#news" class="nav-link">News</a>
+      <a href="#hr" class="nav-link">HR Policies</a>
+      <a href="#holidays" class="nav-link">Holidays</a>
+      <a href="#announcements" class="nav-link">Announcements</a>
+      <a href="#feedback" class="nav-link nav-cta">Feedback</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">Employee Home &middot; <span id="todayDate"></span></div>
+    <h1>Everything the team needs,<br> one door in.</h1>
+    <p class="hero-sub">News, policies, holidays and announcements &mdash; kept current automatically every time this portal is redeployed.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" id="scrollNewsBtn">Read latest news</button>
+      <button class="btn btn-ghost" id="scrollFeedbackBtn">Send feedback</button>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section id="news" class="section">
+    <div class="section-head">
+      <span class="eyebrow">01 &mdash; Company News</span>
+      <h2>What's happening</h2>
+    </div>
+
+    <div class="card-grid" id="newsGrid"></div>
+  </section>
+
+  <!-- HR POLICIES (accordion) -->
+  <section id="hr" class="section section-alt">
+    <div class="section-head">
+      <span class="eyebrow">02 &mdash; HR Policies</span>
+      <h2>Know where you stand</h2>
+    </div>
+
+    <div class="accordion" id="policyAccordion"></div>
+  </section>
+
+  <!-- HOLIDAY CALENDAR -->
+  <section id="holidays" class="section">
+    <div class="section-head">
+      <span class="eyebrow">03 &mdash; Holiday Calendar</span>
+      <h2>Plan around the year</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table class="holiday-table" id="holidayTable">
+        <thead>
+          <tr><th>Date</th><th>Occasion</th><th>Type</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ANNOUNCEMENTS -->
+  <section id="announcements" class="section section-alt">
+    <div class="section-head">
+      <span class="eyebrow">04 &mdash; Announcements</span>
+      <h2>Recent updates</h2>
+    </div>
+
+    <ul class="announcement-list" id="announcementList"></ul>
+  </section>
+
+  <!-- FEEDBACK FORM -->
+  <section id="feedback" class="section feedback-section">
+    <div class="section-head">
+      <span class="eyebrow">05 &mdash; Feedback</span>
+      <h2>Tell us what's missing</h2>
+    </div>
+
+    <form class="feedback-form" id="feedbackForm" novalidate>
+      <div class="form-row">
+        <label for="fbName">Name</label>
+        <input type="text" id="fbName" name="fbName" placeholder="Your full name" required>
+        <span class="field-error" id="fbNameError"></span>
+      </div>
+
+      <div class="form-row">
+        <label for="fbDept">Department</label>
+        <select id="fbDept" name="fbDept" required>
+          <option value="" disabled selected>Select your department</option>
+          <option>Engineering</option>
+          <option>HR</option>
+          <option>Sales</option>
+          <option>Operations</option>
+          <option>Other</option>
+        </select>
+        <span class="field-error" id="fbDeptError"></span>
+      </div>
+
+      <div class="form-row">
+        <label for="fbMessage">Message</label>
+        <textarea id="fbMessage" name="fbMessage" rows="4" placeholder="What should we add or fix on the portal?" required></textarea>
+        <span class="field-error" id="fbMessageError"></span>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit feedback</button>
+      <p class="form-confirm" id="formConfirm" role="status" aria-live="polite"></p>
+    </form>
+
+    <div class="feedback-log">
+      <h3>Recently submitted <span class="log-count" id="logCount">(0)</span></h3>
+      <ul id="feedbackLog" class="feedback-log-list"></ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>&copy; <span id="year"></span> Acme Corp. Internal use only &mdash; not for external distribution.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
