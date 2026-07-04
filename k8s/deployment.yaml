@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: intranet-portal
-          image: intranet-portal:latest   # change to dockerhubuser/intranet-portal:latest if using Docker Hub
+          image: jayakavin2005/intranet-portal:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
